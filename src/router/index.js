@@ -4,7 +4,6 @@ import Home from "../views/Home.vue";
 import About from "../views/About.vue";
 import Contact from "../views/Contact.vue";
 import Countries from "../views/Countries.vue";
-import Death from "../views/Death.vue";
 import Incubation from "../views/Incubation.vue";
 import Symptoms from "../views/Symptoms.vue";
 import Transfer from "../views/Transfer.vue";
@@ -31,12 +30,7 @@ const routes = [
     path: "/countries",
     name: "countries",
     component: Countries 
-  },
-  {
-    path: "/death",
-    name: "death",
-    component: Death 
-  },
+  }, 
   {
     path: "/incubation",
     name: "incubation",

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <h2>Transfer</h2>
   </div>
 </template>
@@ -7,6 +7,6 @@
 <script>
 
 export default {
-  name: 'Transfer',
+  name: 'transfer',
 }
 </script>

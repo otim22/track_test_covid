@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <h2>Incubation</h2>
   </div>
 </template>
@@ -7,6 +7,6 @@
 <script>
 
 export default {
-  name: 'Incubation',
+  name: 'incubation',
 }
 </script>
