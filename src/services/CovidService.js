@@ -10,6 +10,9 @@ const apiClient = axios.create({
 })
 
 export default {
+  getSummary() {
+    return apiClient.get('/summary')
+  },
   getCountries() {
     return apiClient.get('/countries')
   }
