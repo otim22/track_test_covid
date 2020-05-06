@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h2 class="mt-5 mb-4">Global Coronavirus status update</h2>
+    <h2 class="mt-5 mb-4">Global Coronavirus status live update</h2>
     <div class="row mb-5">
       <div class="col-sm-12 col-md-4 col-lg-4">
         <b-card title="Confirmed Cases">
@@ -27,7 +27,7 @@
 
     <div>
       <b-row>
-        <b-col sm="6 mb-4" md="6 mb-4" class="perPageStyle">
+        <b-col sm="4 mb-4" md="4 mb-4" class="perPageStyle">
           <b-form-group
             label="Per page"
             label-cols-sm="6"
@@ -46,9 +46,31 @@
             ></b-form-select>
           </b-form-group>
         </b-col>
+        <b-col sm="12" lg="8" class="searchClass">
+          <b-form-group
+            label="Filter"
+            label-cols-sm="3"
+            label-align-sm="right"
+            label-size="sm"
+            label-for="filterInput"
+            class="mb-0"
+          >
+            <b-input-group size="sm">
+              <b-form-input
+                v-model="filter"
+                type="search"
+                id="filterInput"
+                placeholder="Type to Search"
+              ></b-form-input>
+              <b-input-group-append>
+                <b-button :disabled="!filter" @click="filter = ''">Clear</b-button>
+              </b-input-group-append>
+            </b-input-group>
+          </b-form-group>
+        </b-col>
       </b-row>
       <b-table
-        sticky-header
+        sticky-header="800px"
         no-border-collapse
         responsive
         hover
@@ -59,11 +81,9 @@
         :current-page="currentPage"
         :per-page="perPage"
         @filtered="onFiltered"
+        :filter="filter"
+        :filterIncludedFields="filterOn"
       >
-        <!-- We are using utility class `text-nowrap` to help illustrate horizontal scrolling -->
-        <template>
-          <div class="text-nowrap"></div>
-        </template>
         <template v-slot:cell(NewConfirmed)="data">
           <span :class="data.value >= 1 ? 'text-warning' : ''">{{ data.value }}</span>
         </template>
@@ -97,7 +117,7 @@ export default {
       summary: [],
       countries: [],
       fields: [
-        {key: 'Country', label: 'Country', sortable: true},
+        { key: 'Country', label: 'Country', sortable: true, sortByFormatted: true, filterByFormatted: true },
         { key: 'NewConfirmed', label: 'New Cases', sortable: true },
         { key: 'TotalConfirmed', label: 'Total Cases', sortable: true },
         { key: 'NewDeaths', label: 'New Deaths', sortable: true },
@@ -105,11 +125,13 @@ export default {
         { key: 'NewRecovered', label: 'New Recovered', sortable: true },
         { key: 'TotalRecovered', label: 'Total Recovered', sortable: true }
       ],
-      items: this.countries,
+      items: [],
       totalRows: 1,
       currentPage: 1,
-      perPage: 10,
-      pageOptions: [5, 10, 15],
+      perPage: 50,
+      pageOptions: [50, 100, 248],
+      filter: null,
+      filterOn: [],
     }
   },
   created(){
@@ -124,18 +146,28 @@ export default {
   },
   mounted() {
     const summary = JSON.parse(this.$localStorage.get('summary'))
-    this.totalRows = this.countries.length
     
-    if (summary) {
+    if(summary) {
       this.summary = summary
       this.countries = this.summary['Countries']
+      this.items = this.countries
+      this.totalRows = this.countries.length
     }  
-    // console.log(this.totalRows);
   }, 
+  computed: {
+    sortOptions() {
+      // Create an options list from our fields
+      return this.fields
+        .filter(f => f.sortable)
+        .map(f => {
+          return { text: f.label, value: f.key }
+        })
+    }
+  },
   methods: {
     onFiltered() {
       // Trigger pagination to update the number of buttons/pages due to filtering
-      if ( this.countries.length > 1) {
+      if(this.countries.length > 1) {
         this.totalRows = this.countries.length
       }
       
@@ -144,3 +176,6 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+</style>
