@@ -84,6 +84,11 @@
         :filter="filter"
         :filterIncludedFields="filterOn"
       >
+        <template v-slot:cell(Country)="data">
+          <router-link :to="{ path: 'countries', query: { country: data.value } }">
+            {{ data.value }}
+          </router-link>
+        </template>
         <template v-slot:cell(NewConfirmed)="data">
           <span :class="data.value >= 1 ? 'text-warning' : ''">{{ data.value }}</span>
         </template>
@@ -92,7 +97,7 @@
         </template>
       </b-table>
       <b-row>
-        <b-col sm="12" md="12" class="paginationStyle">
+        <b-col sm="12" md="8 offset-2 mt-4" class="paginationStyle">
           <b-pagination
             v-model="currentPage"
             :total-rows="totalRows"

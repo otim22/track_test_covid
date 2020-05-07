@@ -1,6 +1,10 @@
 <template>
   <div class="container">
-    <h4>Test</h4>
+    <div class="row mt-4">
+      <div class="col-sm-12 col-md-12 col-lg-12">
+        <h2>Home</h2>
+      </div>
+    </div>
   </div>
 </template>
 
