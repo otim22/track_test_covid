@@ -33,7 +33,7 @@ const routes = [
     component: Status 
   }, 
   {
-    path: "/countries",
+    path: "/countries", 
     name: "country",
     component: Country,
     props: true 

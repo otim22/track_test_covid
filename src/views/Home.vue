@@ -6,22 +6,22 @@
         <div class="row mb-5">
           <div class="col-sm-12 col-md-4 col-lg-4">
             <b-card title="Confirmed Cases">
-              <b-card-text>
-                {{ addCommas(summary['Global']['TotalConfirmed']) }}
+              <b-card-text v-if="!loading">
+                {{ addCommas(summary.Global.TotalConfirmed) }}
               </b-card-text>
             </b-card>
           </div>
           <div class="col-sm-12 col-md-4 col-lg-4">
             <b-card title="Total Recoveries">
-              <b-card-text>
-                {{ addCommas(summary['Global']['TotalRecovered']) }}
+              <b-card-text v-if="!loading">
+                {{ addCommas(summary.Global.TotalRecovered) }}
               </b-card-text>
             </b-card>
           </div>
           <div class="col-sm-12 col-md-4 col-lg-4">
             <b-card title="Total Deaths">
-              <b-card-text>
-                {{ addCommas(summary['Global']['TotalDeaths']) }}
+              <b-card-text v-if="!loading">
+                {{ addCommas(summary.Global.TotalDeaths) }}
               </b-card-text>
             </b-card>
           </div>
@@ -40,18 +40,12 @@ export default {
   data() {
     return {
       summary: [],
-      countries: []
+      countries: [],
+      loading: false
     }
   },
   created(){
-    CovidService.getSummary()
-          .then(response => {
-            this.summary = response.data
-            this.$localStorage.set('summary', JSON.stringify(this.summary))
-          })
-          .catch(error => {
-            console.log('There was an error:', error.response)
-          })
+    this.getDataFromApi()
   },
   mounted() {
     const summary = JSON.parse(this.$localStorage.get('summary'))
@@ -62,7 +56,19 @@ export default {
     }  
   },
   methods: {
-    addCommas: numberWithCommas
+    addCommas: numberWithCommas,
+    getDataFromApi() {
+      this.loading = true;
+      CovidService.getSummary()
+          .then(response => {
+            this.summary = response.data
+            this.$localStorage.set('summary', JSON.stringify(this.summary))
+            this.loading = false
+          })
+          .catch(error => {
+            console.log('There was an error:', error.response)
+          })
+    }
   }
 }
 </script>

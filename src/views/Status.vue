@@ -4,22 +4,22 @@
     <div class="row mb-5">
       <div class="col-sm-12 col-md-4 col-lg-4">
         <b-card title="Confirmed Cases">
-          <b-card-text>
-            {{ addCommas(summary['Global']['TotalConfirmed']) }}
+          <b-card-text v-if="!loading">
+            {{ addCommas(summary.Global.TotalConfirmed) }}
           </b-card-text>
         </b-card>
       </div>
       <div class="col-sm-12 col-md-4 col-lg-4">
         <b-card title="Total Recoveries">
-          <b-card-text>
-            {{ addCommas(summary['Global']['TotalRecovered']) }}
+          <b-card-text v-if="!loading">
+            {{ addCommas(summary.Global.TotalRecovered) }}
           </b-card-text>
         </b-card>
       </div>
       <div class="col-sm-12 col-md-4 col-lg-4">
         <b-card title="Total Deaths">
-          <b-card-text>
-            {{ addCommas(summary['Global']['TotalDeaths']) }}
+          <b-card-text v-if="!loading">
+            {{ addCommas(summary.Global.TotalDeaths) }}
           </b-card-text>
         </b-card>
       </div>
@@ -90,7 +90,8 @@
           </router-link>
         </template>
         <template v-slot:cell(NewConfirmed)="data">
-          <span :class="data.value >= 1 ? 'text-warning' : ''">{{ addCommas(data.value) }}</span>
+          <span :class="data.value >= 1 ? 'text-warning' : ''">
+            {{ addCommas(data.value) }}</span>
         </template>
         <template v-slot:cell(TotalConfirmed)="data">
           <span>{{ addCommas(data.value) }}</span>
@@ -99,7 +100,8 @@
           <span>{{ addCommas(data.value) }}</span>
         </template>
         <template v-slot:cell(TotalDeaths)="data">
-          <span :class="data.value >= 1 ? 'text-danger' : ''">{{ addCommas(data.value) }}</span>
+          <span :class="data.value >= 1 ? 'text-danger' : ''">
+            {{ addCommas(data.value) }}</span>
         </template>
         <template v-slot:cell(NewRecovered)="data">
           <span>{{ addCommas(data.value) }}</span>
@@ -132,8 +134,9 @@ export default {
   name: 'countries',
   data() {
     return {
-      summary: [],
+      summary: '',
       countries: [],
+      loading: false,
       fields: [
         { key: 'Country', label: 'Country', sortable: true, sortByFormatted: true, filterByFormatted: true },
         { key: 'NewConfirmed', label: 'New Cases', sortable: true },
@@ -153,20 +156,13 @@ export default {
     }
   },
   created() {
-    CovidService.getSummary()
-          .then(response => {
-            this.summary = response.data
-            this.$localStorage.set('summary', JSON.stringify(this.summary))
-          })
-          .catch(error => {
-            console.log('There was an error:', error.response)
-          })
+    this.getDataFromApi()
   },
   mounted() {
-    const summary = JSON.parse(this.$localStorage.get('summary'))
+    const summaryData = JSON.parse(this.$localStorage.get('summary'))
     
-    if(summary) {
-      this.summary = summary
+    if(summaryData) {
+      this.summary = summaryData
       this.countries = this.summary['Countries']
       this.items = this.countries
       this.totalRows = this.countries.length
@@ -183,6 +179,7 @@ export default {
     }
   },
   methods: {
+    addCommas: numberWithCommas,
     onFiltered() {
       // Trigger pagination to update the number of buttons/pages due to filtering
       if(this.countries.length > 1) {
@@ -191,10 +188,18 @@ export default {
       
       this.currentPage = 1
     },
-    addCommas: numberWithCommas
+    getDataFromApi() {
+      this.loading = true;
+      CovidService.getSummary()
+          .then(response => {
+            this.summary = response.data
+            this.$localStorage.set('summary', JSON.stringify(this.summary))
+            this.loading = false
+          })
+          .catch(error => {
+            console.log('There was an error:', error.response)
+          })
+    }
   }
 }
 </script>
-
-<style lang="scss" scoped>
-</style>
