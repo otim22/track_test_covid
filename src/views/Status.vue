@@ -5,21 +5,21 @@
       <div class="col-sm-12 col-md-4 col-lg-4">
         <b-card title="Confirmed Cases">
           <b-card-text>
-            {{ summary['Global']['TotalConfirmed'] }}
+            {{ addCommas(summary['Global']['TotalConfirmed']) }}
           </b-card-text>
         </b-card>
       </div>
       <div class="col-sm-12 col-md-4 col-lg-4">
         <b-card title="Total Recoveries">
           <b-card-text>
-            {{ summary['Global']['TotalRecovered'] }}
+            {{ addCommas(summary['Global']['TotalRecovered']) }}
           </b-card-text>
         </b-card>
       </div>
       <div class="col-sm-12 col-md-4 col-lg-4">
         <b-card title="Total Deaths">
           <b-card-text>
-            {{ summary['Global']['TotalDeaths'] }}
+            {{ addCommas(summary['Global']['TotalDeaths']) }}
           </b-card-text>
         </b-card>
       </div>
@@ -90,10 +90,22 @@
           </router-link>
         </template>
         <template v-slot:cell(NewConfirmed)="data">
-          <span :class="data.value >= 1 ? 'text-warning' : ''">{{ data.value }}</span>
+          <span :class="data.value >= 1 ? 'text-warning' : ''">{{ addCommas(data.value) }}</span>
+        </template>
+        <template v-slot:cell(TotalConfirmed)="data">
+          <span>{{ addCommas(data.value) }}</span>
+        </template>
+        <template v-slot:cell(NewDeaths)="data">
+          <span>{{ addCommas(data.value) }}</span>
         </template>
         <template v-slot:cell(TotalDeaths)="data">
-          <span :class="data.value >= 1 ? 'text-danger' : ''">{{ data.value }}</span>
+          <span :class="data.value >= 1 ? 'text-danger' : ''">{{ addCommas(data.value) }}</span>
+        </template>
+        <template v-slot:cell(NewRecovered)="data">
+          <span>{{ addCommas(data.value) }}</span>
+        </template>
+        <template v-slot:cell(TotalRecovered)="data">
+          <span>{{ addCommas(data.value) }}</span>
         </template>
       </b-table>
       <b-row>
@@ -114,6 +126,7 @@
 
 <script>
 import CovidService from '@/services/CovidService.js'
+import numberWithCommas from '@/util/separator.js'
 
 export default {
   name: 'countries',
@@ -139,7 +152,7 @@ export default {
       filterOn: [],
     }
   },
-  created(){
+  created() {
     CovidService.getSummary()
           .then(response => {
             this.summary = response.data
@@ -177,7 +190,8 @@ export default {
       }
       
       this.currentPage = 1
-    }
+    },
+    addCommas: numberWithCommas
   }
 }
 </script>
