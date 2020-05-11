@@ -7,7 +7,6 @@ import Contact from "../views/Contact.vue";
 import Country from "../views/Country.vue";
 import Transfer from "../views/Transfer.vue";
 import Symptoms from "../views/Symptoms.vue";
-import Incubation from "../views/Incubation.vue";
 import NotFound from '../views/NotFound.vue'
 import NetworkIssue from '../views/NetworkIssue.vue'
 
@@ -40,11 +39,6 @@ const routes = [
     component: Country,
     props: true 
   }, 
-  {
-    path: "/incubation",
-    name: "incubation",
-    component: Incubation 
-  },
   {
     path: "/symptoms",
     name: "symptoms",
