@@ -8,6 +8,8 @@ import Country from "../views/Country.vue";
 import Transfer from "../views/Transfer.vue";
 import Symptoms from "../views/Symptoms.vue";
 import Incubation from "../views/Incubation.vue";
+import NotFound from '../views/NotFound.vue'
+import NetworkIssue from '../views/NetworkIssue.vue'
 
 Vue.use(VueRouter);
 
@@ -52,6 +54,21 @@ const routes = [
     path: "/transfer",
     name: "transfer",
     component: Transfer
+  },
+  {
+    path: '/404',
+    name: '404',
+    component: NotFound,
+    props: true
+  },
+  {
+    path: '/network-issue',
+    name: 'network-issue',
+    component: NetworkIssue
+  },
+  {
+    path: '*',
+    redirect: { name: '404', params: { resource: 'page' } }
   }
 ];
 

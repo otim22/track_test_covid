@@ -1,6 +1,8 @@
 <template>
   <div class="container">
-    <h2>Contact</h2>
+    <div class="row mt-5">
+      <h2>Contact</h2>
+    </div>
   </div>
 </template>
 
