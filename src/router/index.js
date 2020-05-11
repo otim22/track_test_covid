@@ -2,7 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import About from "../views/About.vue";
-import Status from "../views/Status.vue";
+import Test from "../views/Test.vue";
 import Contact from "../views/Contact.vue";
 import Country from "../views/Country.vue";
 import Transfer from "../views/Transfer.vue";
@@ -30,9 +30,9 @@ const routes = [
     component: Contact
   },
   {
-    path: "/status",
-    name: "status",
-    component: Status 
+    path: "/test",
+    name: "test",
+    component: Test 
   }, 
   {
     path: "/countries", 

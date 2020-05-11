@@ -12,7 +12,7 @@
             <b-nav-item href="symptoms">Symptoms</b-nav-item>
             <b-nav-item href="incubation">Incubation</b-nav-item>
             <b-nav-item href="transfer">Transfer</b-nav-item>
-            <b-nav-item href="status">Status</b-nav-item>
+            <b-nav-item href="test">Test</b-nav-item>
           </b-navbar-nav>
 
           <!-- Right aligned nav items -->

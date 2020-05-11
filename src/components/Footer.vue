@@ -2,7 +2,9 @@
   <div class="container">
     <div class="row mt-5 footer-top center">
       <div class="col-sm-12 col-md-4 col-lg-4">
-        <h5>Stay home, Stay safe.</h5>        
+        <p>Hand wash to sanitise, <br>
+          Keep the social distance <br>
+          Stay home if a must and Stay safe.</p>        
       </div>
       <div class="col-sm-12 col-md-4 col-lg-4">
         <h5 class="mb-3">Site Links</h5>  
