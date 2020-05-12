@@ -121,6 +121,7 @@
 <script>
 import CovidSummary from '@/components/views/helpers/CovidSummary'
 import CovidUpdate from '@/components/views/helpers/CovidUpdate'
+import status from '@/components/views/helpers/status'
 import dataMixin from '@/mixins'
 
 export default {
