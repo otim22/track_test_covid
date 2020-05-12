@@ -1,11 +1,17 @@
+const path = require('path')
+
 module.exports = {
+  rootDir: path.resolve(__dirname, './'),
   transform: {
-    "^.+\\.js$": "babel-jest",
-    "^.+\\.vue$": "vue-jest"
+    "^.+\\.js$": '<rootDir>/node_modules/babel-jest',
+    "^.+\\.vue$": '<rootDir>/node_modules/vue-jest'
+  },
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/src/$1'
   },
   collectCoverage: true,
   collectCoverageFrom: [
-    "**/*.{js,vue}",
+    'src/**/*.{js,vue}',
     "!**/node_modules/**",
     "!**/vendor/**",
     "!**/coverage/**",

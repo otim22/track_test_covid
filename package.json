@@ -10,7 +10,7 @@
     "capacitor-init": "vue-cli-service capacitor-init",
     "capacitor-open": "vue-cli-service capacitor-open",
     "capacitor-update": "vue-cli-service capacitor-update",
-    "test": "jest"
+    "test": "jest --config jest.config.js --coverage --no-cache"
   },
   "dependencies": {
     "@babel/core": "^7.9.6",
