@@ -1,21 +1,11 @@
 <template>
   <div class="container">
-    <div class="row mb-5">
+    <div class="row">
       <div class="col-sm-12 col-md-12 col-lg-12">
         <h2 class="mt-5 mb-5">Global Coronavirus status live update</h2>
       </div>
-      <template v-for="(item, index) in covidUpdates">
-        <div :key="index" class="col-sm-12 col-md-4 col-lg-4 text-center">
-           <covid-live-updates
-            v-if="!loading"
-            :title="item.title"
-            :count="item.number"
-            :css-class="item.cssClass"
-          />
-        </div>
-      </template>
     </div>
-
+    <covid-summary v-if="!loading" :country="summary" />
     <div>
       <b-row>
         <b-col sm="4 mb-4" md="4 mb-4" class="perPageStyle">
@@ -129,20 +119,19 @@
 </template>
 
 <script>
-import CovidLiveUpdates from '@/components/views/helpers/CovidLiveUpdates'
+import CovidSummary from '@/components/views/helpers/CovidSummary'
 import CovidUpdate from '@/components/views/helpers/CovidUpdate'
-import status from '@/components/views/helpers/status'
-import { mapGetters } from 'vuex'
+import dataMixin from '@/mixins'
 
 export default {
   name: 'Home',
   components: {
-    CovidLiveUpdates,
+    CovidSummary,
     CovidUpdate
   },
+  mixins: [dataMixin],
   data () {
     return {
-      loading: false,
       fields: [
         { key: 'Country', label: 'Country', sortable: true, sortByFormatted: true, filterByFormatted: true },
         { key: 'NewConfirmed', label: 'New Cases', sortable: true },
@@ -162,39 +151,12 @@ export default {
       status
     }
   },
-  async created() {
-    await this.getDataFromApi()
-  },
   watch: {
     countries () {
       this.totalRows = this.items = this.countries.length
     }
   }, 
   computed: {
-    ...mapGetters([
-      'summary',
-      'countries'
-    ]),
-    covidUpdates () {
-      const { warning, danger, primary } = this.status
-      return [
-        {
-          title: 'Confirmed Cases',
-          cssClass: warning,
-          number: this.summary.TotalConfirmed
-        },
-        {
-          title: 'Total Recoveries',
-          cssClass: primary,
-          number: this.summary.TotalRecovered
-        },
-        {
-          title: 'Total Deaths',
-          cssClass: danger,
-          number: this.summary.TotalDeaths
-        },
-      ]
-    },
     sortOptions() {
       // Create an options list from our fields
       return this.fields
@@ -213,16 +175,6 @@ export default {
       
       this.currentPage = 1
     },
-    async getDataFromApi() {
-      this.loading = true;
-      try {
-        await this.$store.dispatch('getSummary')
-        this.loading = false
-      } catch (error) {
-          console.error('There was an error:', error.response)
-          throw error(error.response)
-      }
-    }
   }
 }
 </script>

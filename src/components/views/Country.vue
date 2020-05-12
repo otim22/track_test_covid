@@ -2,77 +2,89 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-12 col-md-12 col-lg-12">
-        <h2 class="mt-5 mb-5">Country: {{ country['Country'] }} <span class="back"><router-link to="/">World <font-awesome-icon :icon="['fas', 'chevron-right']" class="ml-1"/></router-link></span></h2>
+        <h2 class="mt-5 mb-5">Country: {{ countryName }} <span class="back"><router-link to="/">World <font-awesome-icon :icon="['fas', 'chevron-right']" class="ml-1"/></router-link></span></h2>
       </div>
-      <div class="col-sm-12 col-md-4 col-lg-4 text-center">
-        <b-card title="Confirmed Cases">
-          <b-card-text v-if="!loading"
-                      :class="country.NewConfirmed >= 1 ? 'text-warning' : ''"
-                      class="font-set">
-            {{ addCommas(country.TotalConfirmed) }}
-          </b-card-text>
-        </b-card>
-      </div>
-      <div class="col-sm-12 col-md-4 col-lg-4 text-center">
-        <b-card title="Total Recoveries">
-          <b-card-text v-if="!loading"
-                      :class="country.TotalRecovered >= 1 ? 'text-primary' : ''"
-                      class="font-set">
-            {{ addCommas(country.TotalRecovered) }}
-          </b-card-text>
-        </b-card>
-      </div>
-      <div class="col-sm-12 col-md-4 col-lg-4 text-center">
-        <b-card title="Total Deaths">
-          <b-card-text v-if="!loading"
-                      :class="country.TotalDeaths >= 1 ? 'text-danger' : ''"
-                      class="font-set">
-            {{ addCommas(country.TotalDeaths) }}
-          </b-card-text>
-        </b-card>
-      </div>
+    </div>
+    <covid-summary v-if="hasCountryData" :country="country" />
+    <div class="row">
       <div class="col-sm-12 col-md-12 col-lg-12">
-        <h5 class="mt-5">New Cases: {{ country['NewConfirmed'] }}</h5>
-        <h5 class="mt-3">Total confirmed cases: {{ country['TotalConfirmed'] }}</h5>
-        <h5 class="mt-3">New Deaths: {{ country['NewDeaths'] }}</h5>
-        <h5 class="mt-3">Total Deaths: {{ country['TotalDeaths'] }}</h5>
-        <h5 class="mt-3">New Recoveries: {{ country['NewRecovered'] }}</h5>
-        <h5 class="mt-3">Total Recoveries: {{ country['TotalRecovered'] }}</h5>
+        <template v-for="(value, index ) in countrySummary">
+          <h5 :key="index" :class="value.cssClass">{{ value.message }}</h5>
+        </template>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import numberWithCommas from '@/util/separator.js'
+import dataMixin from '@/mixins'
+import CovidSummary from '@/components/views/helpers/CovidSummary'
 
 export default {
+  name: 'country',
+  components: {
+    CovidSummary
+  },
   data() {
     return {
-      country: '',
-      counts: [],
-      loading: false
+      country: {},
+      countrySummary: []
     }
   },
-  name: 'country',
-  created() {
-    const summary = JSON.parse(this.$localStorage.get('summary'))
-    
-    if(summary) {
-      this.counts = summary['Countries']
-    } 
+  mixins: [dataMixin],
+  computed: {
+    hasCountryData () {
+      return Object.keys(this.country).length > 0
+    },
+    countryName () {
+      return this.$route.query.country
+    }
   },
-  mounted() {
-    let queryCountry = this.$route.query.country
-
-    this.country = this.counts.filter((count) => {
-      return count.Country === queryCountry
-    })
-
-    this.country = this.country[0]
+  created () {
+    this.country = this.setCountryData()
+  },
+  watch: {
+    countries () {
+      this.country = this.setCountryData()
+    },
+    country () {
+      this.countrySummary = this.setSummaryData()
+    }
   },
   methods: {
-    addCommas: numberWithCommas,
+    setCountryData () {
+      return this.countries.filter((value) => {
+        return value.Country === this.countryName
+      })[0]
+    },
+    setSummaryData () {
+      return [
+        {
+          message: `New Cases: ${this.country.NewConfirmed}`,
+          cssClass: 'mt-5'
+        },
+        {
+          message: `Total confirmed cases: ${this.country.TotalConfirmed}`,
+          cssClass: 'mt-3'
+        },
+        {
+          message: `New Deaths: ${this.country.NewDeaths}`,
+          cssClass: 'mt-3'
+        },
+        {
+          message: `Total Deaths: ${this.country.TotalDeaths}`,
+          cssClass: 'mt-3'
+        },
+        {
+          message: `New Recoveries: ${this.country.NewRecovered}`,
+          cssClass: 'mt-3'
+        },
+        {
+          message: `Total Recoveries: ${this.country.TotalRecovered}`,
+          cssClass: 'mt-3'
+        }
+      ]
+    }
   }
 }
 </script>
