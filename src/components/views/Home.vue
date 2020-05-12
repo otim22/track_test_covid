@@ -155,7 +155,10 @@ export default {
     countries () {
       this.totalRows = this.items = this.countries.length
     }
-  }, 
+  },
+  created () {
+    this.totalRows = this.countries.length
+  },
   computed: {
     sortOptions() {
       // Create an options list from our fields
