@@ -13,6 +13,6 @@ git init
 git add -A
 git commit -m 'deploy'
 
-git push -f git@github.com:<USERNAME>/<REPO-NAME>.git master:gh-pages
+git push -f git@github.com:otim22/track_test_covid.git master:gh-pages
 
 cd -
