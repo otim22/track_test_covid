@@ -1,7 +1,9 @@
 <template>
   <div class="container">
-    <h2 class="mt-5 mb-4">Global Coronavirus status live update</h2>
     <div class="row mb-5">
+      <div class="col-sm-12 col-md-12 col-lg-12">
+        <h2 class="mt-5 mb-5">Global Coronavirus status live update</h2>
+      </div>
       <div class="col-sm-12 col-md-4 col-lg-4 text-center">
         <b-card title="Confirmed Cases">
           <b-card-text v-if="!loading"
