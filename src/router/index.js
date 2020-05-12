@@ -2,12 +2,13 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import About from "../views/About.vue";
+import Test from "../views/Test.vue";
 import Contact from "../views/Contact.vue";
-import Countries from "../views/Countries.vue";
-import Death from "../views/Death.vue";
-import Incubation from "../views/Incubation.vue";
-import Symptoms from "../views/Symptoms.vue";
+import Country from "../views/Country.vue";
 import Transfer from "../views/Transfer.vue";
+import Symptoms from "../views/Symptoms.vue";
+import NotFound from '../views/NotFound.vue'
+import NetworkIssue from '../views/NetworkIssue.vue'
 
 Vue.use(VueRouter);
 
@@ -28,20 +29,16 @@ const routes = [
     component: Contact
   },
   {
-    path: "/countries",
-    name: "countries",
-    component: Countries 
-  },
+    path: "/test",
+    name: "test",
+    component: Test 
+  }, 
   {
-    path: "/death",
-    name: "death",
-    component: Death 
-  },
-  {
-    path: "/incubation",
-    name: "incubation",
-    component: Incubation 
-  },
+    path: "/countries", 
+    name: "country",
+    component: Country,
+    props: true 
+  }, 
   {
     path: "/symptoms",
     name: "symptoms",
@@ -51,6 +48,21 @@ const routes = [
     path: "/transfer",
     name: "transfer",
     component: Transfer
+  },
+  {
+    path: '/404',
+    name: '404',
+    component: NotFound,
+    props: true
+  },
+  {
+    path: '/network-issue',
+    name: 'network-issue',
+    component: NetworkIssue
+  },
+  {
+    path: '*',
+    redirect: { name: '404', params: { resource: 'page' } }
   }
 ];
 

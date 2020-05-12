@@ -3,17 +3,15 @@
     <div class="row">
       <div class="col-sm-12 col-md-12 col-lg-12">
         <b-navbar toggleable="lg" type="dark" variant="info">
-        <b-navbar-brand href="/">COVID-19 STATUS</b-navbar-brand>
+        <b-navbar-brand href="/">COVIDOMETER</b-navbar-brand>
 
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav>
             <b-nav-item href="symptoms">Symptoms</b-nav-item>
-            <b-nav-item href="incubation">Incubation</b-nav-item>
             <b-nav-item href="transfer">Transfer</b-nav-item>
-            <b-nav-item href="death">Death Rate</b-nav-item>
-            <b-nav-item href="countries">Countries</b-nav-item>
+            <b-nav-item href="test">Test</b-nav-item>
           </b-navbar-nav>
 
           <!-- Right aligned nav items -->
