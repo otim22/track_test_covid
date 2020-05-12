@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const apiClient = axios.create({
+export default axios.create({
   baseURL: `https://api.covid19api.com/`,
   withCredentials: false, // This is the default
   headers: {
@@ -8,12 +8,3 @@ const apiClient = axios.create({
     'Content-Type': 'application/json'
   }
 })
-
-export default {
-  getSummary() {
-    return apiClient.get('/summary')
-  },
-  getCountries() {
-    return apiClient.get('/countries')
-  }
-}

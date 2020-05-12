@@ -1,14 +1,14 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
-import About from "../views/About.vue";
-import Test from "../views/Test.vue";
-import Contact from "../views/Contact.vue";
-import Country from "../views/Country.vue";
-import Transfer from "../views/Transfer.vue";
-import Symptoms from "../views/Symptoms.vue";
-import NotFound from '../views/NotFound.vue'
-import NetworkIssue from '../views/NetworkIssue.vue'
+import Home from "@/components/views/Home.vue";
+import About from "@/components/views/About.vue";
+import Test from "@/components/views/Test.vue";
+import Contact from "@/components/views/Contact.vue";
+import Country from "@/components/views/Country.vue";
+import Transfer from "@/components/views/Transfer.vue";
+import Symptoms from "@/components/views/Symptoms.vue";
+import NotFound from '@/components/views/NotFound.vue'
+import NetworkIssue from '@/components/views/NetworkIssue.vue'
 
 Vue.use(VueRouter);
 

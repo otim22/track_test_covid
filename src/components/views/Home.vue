@@ -4,33 +4,16 @@
       <div class="col-sm-12 col-md-12 col-lg-12">
         <h2 class="mt-5 mb-5">Global Coronavirus status live update</h2>
       </div>
-      <div class="col-sm-12 col-md-4 col-lg-4 text-center">
-        <b-card title="Confirmed Cases">
-          <b-card-text v-if="!loading"
-                      :class="summary.Global.TotalConfirmed >= 1 ? 'text-warning' : ''"
-                      class="font-set">
-            {{ addCommas(summary.Global.TotalConfirmed) }}
-          </b-card-text>
-        </b-card>
-      </div>
-      <div class="col-sm-12 col-md-4 col-lg-4 text-center">
-        <b-card title="Total Recoveries">
-          <b-card-text v-if="!loading"
-                      :class="summary.Global.TotalRecovered >= 1 ? 'text-primary' : ''"
-                      class="font-set">
-            {{ addCommas(summary.Global.TotalRecovered) }}
-          </b-card-text>
-        </b-card>
-      </div>
-      <div class="col-sm-12 col-md-4 col-lg-4 text-center">
-        <b-card title="Total Deaths">
-          <b-card-text v-if="!loading"
-                      :class="summary.Global.TotalDeaths >= 1 ? 'text-danger' : ''"
-                      class="font-set">
-            {{ addCommas(summary.Global.TotalDeaths) }}
-          </b-card-text>
-        </b-card>
-      </div>
+      <template v-for="(item, index) in covidUpdates">
+        <div :key="index" class="col-sm-12 col-md-4 col-lg-4 text-center">
+           <covid-live-updates
+            v-if="!loading"
+            :title="item.title"
+            :count="item.number"
+            :css-class="item.cssClass"
+          />
+        </div>
+      </template>
     </div>
 
     <div>
@@ -98,24 +81,35 @@
           </router-link>
         </template>
         <template v-slot:cell(NewConfirmed)="data">
-          <span>
-            {{ addCommas(data.value) }}</span>
+            <covid-update :count="data.value" />
         </template>
         <template v-slot:cell(TotalConfirmed)="data">
-          <span :class="data.value >= 1 ? 'text-warning' : ''">{{ addCommas(data.value) }}</span>
+          <covid-update
+            :count="data.value"
+            :css-class="status.warning"
+          />
         </template>
         <template v-slot:cell(NewDeaths)="data">
-          <span>{{ addCommas(data.value) }}</span>
+          <covid-update
+            :count="data.value"
+          />
         </template>
         <template v-slot:cell(TotalDeaths)="data">
-          <span :class="data.value >= 1 ? 'text-danger' : ''">
-            {{ addCommas(data.value) }}</span>
+          <covid-update
+            :count="data.value"
+            :css-class="status.danger"
+          />
         </template>
         <template v-slot:cell(NewRecovered)="data">
-          <span>{{ addCommas(data.value) }}</span>
+          <covid-update
+            :count="data.value"
+          />
         </template>
         <template v-slot:cell(TotalRecovered)="data">
-          <span :class="data.value >= 1 ? 'text-primary' : ''">{{ addCommas(data.value) }}</span>
+          <covid-update
+            :count="data.value"
+            :css-class="status.primary"
+          />
         </template>
       </b-table>
       <b-row>
@@ -135,15 +129,19 @@
 </template>
 
 <script>
-import CovidService from '@/services/CovidService.js'
-import numberWithCommas from '@/util/separator.js'
+import CovidLiveUpdates from '@/components/views/helpers/CovidLiveUpdates'
+import CovidUpdate from '@/components/views/helpers/CovidUpdate'
+import status from '@/components/views/helpers/status'
+import { mapGetters } from 'vuex'
 
 export default {
-  name: 'home',
-  data() {
+  name: 'Home',
+  components: {
+    CovidLiveUpdates,
+    CovidUpdate
+  },
+  data () {
     return {
-      summary: '',
-      countries: [],
       loading: false,
       fields: [
         { key: 'Country', label: 'Country', sortable: true, sortByFormatted: true, filterByFormatted: true },
@@ -161,22 +159,42 @@ export default {
       pageOptions: [50, 100, 248],
       filter: null,
       filterOn: [],
+      status
     }
   },
-  created() {
-    this.getDataFromApi()
+  async created() {
+    await this.getDataFromApi()
   },
-  mounted() {
-    const summaryData = JSON.parse(this.$localStorage.get('summary'))
-    
-    if(summaryData) {
-      this.summary = summaryData
-      this.countries = this.summary['Countries']
-      this.items = this.countries
-      this.totalRows = this.countries.length
-    }  
+  watch: {
+    countries () {
+      this.totalRows = this.items = this.countries.length
+    }
   }, 
   computed: {
+    ...mapGetters([
+      'summary',
+      'countries'
+    ]),
+    covidUpdates () {
+      const { warning, danger, primary } = this.status
+      return [
+        {
+          title: 'Confirmed Cases',
+          cssClass: warning,
+          number: this.summary.TotalConfirmed
+        },
+        {
+          title: 'Total Recoveries',
+          cssClass: primary,
+          number: this.summary.TotalRecovered
+        },
+        {
+          title: 'Total Deaths',
+          cssClass: danger,
+          number: this.summary.TotalDeaths
+        },
+      ]
+    },
     sortOptions() {
       // Create an options list from our fields
       return this.fields
@@ -187,7 +205,6 @@ export default {
     }
   },
   methods: {
-    addCommas: numberWithCommas,
     onFiltered() {
       // Trigger pagination to update the number of buttons/pages due to filtering
       if(this.countries.length > 1) {
@@ -196,19 +213,14 @@ export default {
       
       this.currentPage = 1
     },
-    getDataFromApi() {
+    async getDataFromApi() {
       this.loading = true;
-      
-      if (typeof(Storage) !== "undefined") {
-        CovidService.getSummary()
-            .then(response => {
-              this.summary = response.data
-              this.$localStorage.set('summary', JSON.stringify(this.summary))
-              this.loading = false
-            })
-            .catch(error => {
-              console.log('There was an error:', error.response)
-            })
+      try {
+        await this.$store.dispatch('getSummary')
+        this.loading = false
+      } catch (error) {
+          console.error('There was an error:', error.response)
+          throw error(error.response)
       }
     }
   }
