@@ -28,7 +28,6 @@ export default new Vuex.Store({
     async getSummary(context) {
       try {
         const response = await apiClient.get('/summary')
-        console.log(response)
         context.commit('setSummary', response.data)
       } catch (error) {
         throw error(error)
