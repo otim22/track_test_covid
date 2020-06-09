@@ -1,38 +1,11 @@
 <template>
   <div class="container">
-    <div class="row mb-5">
+    <div class="row">
       <div class="col-sm-12 col-md-12 col-lg-12">
         <h2 class="mt-5 mb-5">Global Coronavirus status live update</h2>
       </div>
-      <div class="col-sm-12 col-md-4 col-lg-4 text-center">
-        <b-card title="Confirmed Cases">
-          <b-card-text v-if="!loading"
-                      :class="summary.Global.TotalConfirmed >= 1 ? 'text-warning' : ''"
-                      class="font-set">
-            {{ addCommas(summary.Global.TotalConfirmed) }}
-          </b-card-text>
-        </b-card>
-      </div>
-      <div class="col-sm-12 col-md-4 col-lg-4 text-center">
-        <b-card title="Total Recoveries">
-          <b-card-text v-if="!loading"
-                      :class="summary.Global.TotalRecovered >= 1 ? 'text-primary' : ''"
-                      class="font-set">
-            {{ addCommas(summary.Global.TotalRecovered) }}
-          </b-card-text>
-        </b-card>
-      </div>
-      <div class="col-sm-12 col-md-4 col-lg-4 text-center">
-        <b-card title="Total Deaths">
-          <b-card-text v-if="!loading"
-                      :class="summary.Global.TotalDeaths >= 1 ? 'text-danger' : ''"
-                      class="font-set">
-            {{ addCommas(summary.Global.TotalDeaths) }}
-          </b-card-text>
-        </b-card>
-      </div>
     </div>
-
+    <covid-summary v-if="!loading" :country="summary" />
     <div>
       <b-row>
         <b-col sm="4 mb-4" md="4 mb-4" class="perPageStyle">
@@ -98,24 +71,35 @@
           </router-link>
         </template>
         <template v-slot:cell(NewConfirmed)="data">
-          <span>
-            {{ addCommas(data.value) }}</span>
+            <covid-update :count="data.value" />
         </template>
         <template v-slot:cell(TotalConfirmed)="data">
-          <span :class="data.value >= 1 ? 'text-warning' : ''">{{ addCommas(data.value) }}</span>
+          <covid-update
+            :count="data.value"
+            :css-class="status.warning"
+          />
         </template>
         <template v-slot:cell(NewDeaths)="data">
-          <span>{{ addCommas(data.value) }}</span>
+          <covid-update
+            :count="data.value"
+          />
         </template>
         <template v-slot:cell(TotalDeaths)="data">
-          <span :class="data.value >= 1 ? 'text-danger' : ''">
-            {{ addCommas(data.value) }}</span>
+          <covid-update
+            :count="data.value"
+            :css-class="status.danger"
+          />
         </template>
         <template v-slot:cell(NewRecovered)="data">
-          <span>{{ addCommas(data.value) }}</span>
+          <covid-update
+            :count="data.value"
+          />
         </template>
         <template v-slot:cell(TotalRecovered)="data">
-          <span :class="data.value >= 1 ? 'text-primary' : ''">{{ addCommas(data.value) }}</span>
+          <covid-update
+            :count="data.value"
+            :css-class="status.primary"
+          />
         </template>
       </b-table>
       <b-row>
@@ -135,16 +119,20 @@
 </template>
 
 <script>
-import CovidService from '@/services/CovidService.js'
-import numberWithCommas from '@/util/separator.js'
+import CovidSummary from '@/components/views/helpers/CovidSummary'
+import CovidUpdate from '@/components/views/helpers/CovidUpdate'
+import status from '@/components/views/helpers/status'
+import dataMixin from '@/mixins'
 
 export default {
-  name: 'home',
-  data() {
+  name: 'Home',
+  components: {
+    CovidSummary,
+    CovidUpdate
+  },
+  mixins: [dataMixin],
+  data () {
     return {
-      summary: '',
-      countries: [],
-      loading: false,
       fields: [
         { key: 'Country', label: 'Country', sortable: true, sortByFormatted: true, filterByFormatted: true },
         { key: 'NewConfirmed', label: 'New Cases', sortable: true },
@@ -161,21 +149,17 @@ export default {
       pageOptions: [50, 100, 248],
       filter: null,
       filterOn: [],
+      status
     }
   },
-  created() {
-    this.getDataFromApi()
+  watch: {
+    countries () {
+      this.totalRows = this.items = this.countries.length
+    }
   },
-  mounted() {
-    const summaryData = JSON.parse(this.$localStorage.get('summary'))
-    
-    if(summaryData) {
-      this.summary = summaryData
-      this.countries = this.summary['Countries']
-      this.items = this.countries
-      this.totalRows = this.countries.length
-    }  
-  }, 
+  created () {
+    this.totalRows = this.countries.length
+  },
   computed: {
     sortOptions() {
       // Create an options list from our fields
@@ -187,7 +171,6 @@ export default {
     }
   },
   methods: {
-    addCommas: numberWithCommas,
     onFiltered() {
       // Trigger pagination to update the number of buttons/pages due to filtering
       if(this.countries.length > 1) {
@@ -196,21 +179,6 @@ export default {
       
       this.currentPage = 1
     },
-    getDataFromApi() {
-      this.loading = true;
-      
-      if (typeof(Storage) !== "undefined") {
-        CovidService.getSummary()
-            .then(response => {
-              this.summary = response.data
-              this.$localStorage.set('summary', JSON.stringify(this.summary))
-              this.loading = false
-            })
-            .catch(error => {
-              console.log('There was an error:', error.response)
-            })
-      }
-    }
   }
 }
 </script>
