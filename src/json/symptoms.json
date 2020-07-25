@@ -1,0 +1,66 @@
+{
+  "title": "Covid-19 symptoms",
+  "summary": [
+    "Covid-19 is a respiratory condition caused by a coronavirus. There are various symptoms in people with COVID-19 ranging from mild to intensive illness. These symptoms surfaces after 2-14 days of exposure to the virus. Some people can get infected but never notice any symptoms. And some will get better from mild symptoms own their own.",
+    "The possibility of more serious symptoms are higher if you’re older or have some other health conditions like diabetes, hypertension, lung, Heart, or kidney disease. Isolate yourself incase of any of these symptoms your loved ones inclusive and keep in one room for as long as it takes. Call a doctor as you keep a isolating."
+  ],
+  "symptoms": [
+    {
+      "type": "Common symptoms",
+      "data": [
+        "Fever (99%)",
+        "Fatigue (70%)",
+        "A dry cough (59%)",
+        "Loss of appetite (40%)",
+        "Body aches (35%)",
+        "Shortness of breath (31%)",
+        "Mucus or phlegm (27%)"
+      ]
+    },
+    {
+      "type": "Acute symptoms",
+      "data": [
+        "Trouble breathing",
+        "Constant pain or pressure in your chest",
+        "Bluish lips or face",
+        "Sudden confusion"
+      ]
+    },
+    {
+      "type": "Others include",
+      "data": [
+        "Sore throat",
+        "Headache",
+        "Chills, sometimes with shaking",
+        "Loss of smell or taste",
+        "Stuffy nose",
+        "Nausea or vomiting",
+        "Diarrhea"
+      ]
+    }
+  ],
+  "conditions": [
+    {
+      "type": "Pre-existing conditions",
+      "data": [
+        "Cardiovascular disease",
+        "Diabetes",
+        "Chronic respiratory disease",
+        "Hypertension",
+        "Lung, Heart, or Kidney disease"
+      ]
+    }
+  ],
+  "preventions": [
+    {
+      "type": "Protection mechanisms",
+      "data": [
+        "Wash your hands often, for at least 20 seconds each time, with soap and water.",
+        "Use an alcohol-based sanitizer with at least 60% alcohol if you don't have to soap and water handy.",
+        "Avoid people who are sick.",
+        "Don’t touch your eyes, nose, or mouth unless you’ve just washed your hands.",
+        "Regularly clean and disinfect surfaces that you touch a lot."
+      ]
+    }
+  ]
+}

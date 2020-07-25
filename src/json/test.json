@@ -1,0 +1,77 @@
+{
+  "test": [
+    {
+      "title": "Who gets tested?",
+      "description": [
+        "Apparently testing isn't enough for everyone, and medical personel decides who gets tested.",
+        "CDC recommends a priority system to setup for who should get tested.",
+        "People who have the coronavirus symptoms and who are more likely to get seriously ill because of other health conditions such as diabetes, cancer, Heart, lung, or kidney disease."
+      ]
+    },
+    {
+      "title": "How to be tested?",
+      "how_to_summary": "You call your nearest health facility. And you should be ready to answer the following;",
+      "signs": [
+        {
+          "type": "Do you have a fever or cough?"
+        },
+        {
+          "type": "Do you have shortness of breath?",
+          "data": [
+            "Tightness in your chest", 
+            "Can’t catch your breath", 
+            "Can’t get enough air into your lungs",
+            "Can’t breathe deeply",
+            "Are smothering, drowning, or suffocating",
+            "Have to work harder than usual to breathe in or out",
+            "Need to breathe in before you’re done breathing out"
+          ]
+        },
+        {
+          "type": "Have you been in close contact (within 6 feet) with someone who has COVID-19?"
+        },
+        {
+          "type": "Has someone with COVID-19 coughed or sneezed on you?"
+        },
+        {
+          "type": "Have you traveled recently?"
+        },
+        {
+          "type": "Did a health official tell you that you’ve come into contact with COVID-19?"
+        }
+      ]
+    },
+    {
+      "title": "Types of Covid-19 Testing",
+      "test_types": "CDC recommends COVID-19 to be tested by a method called nasopharyngeal swab where technical people will put a special 6-inch cotton swab up both sides of your nose and move it around for about 15 seconds. It might be uncomfortableIt but won't hurt. Then send the swab to a lab to test the material from inside your nose."
+    },
+    {
+      "title": "Other tests include",
+      "data": [
+        "Mouth and throat (oropharyngeal)",
+        "Middle of your nostrils (nasal mid-turbinate)",
+        "Front of your nostrils (anterior nares)",
+        "Can’t breathe deeply"
+      ]
+    },
+    {
+      "title": "Covid-19 tests spot two types of antibodies",
+      "data": [
+        "IgM, which your body makes for about 2 weeks before the levels drop",
+        "IgG, which your body makes more slowly (within about 4 weeks) but which usually last longer"
+      ],
+      "more": "It takes a lab about 24 hours to run a test and a few days for you to get your results."
+    },
+    {
+      "title": "Steps to avoid spreading the virus",
+      "steps_to_summary": "Having a positive COVID-19 test means you apparently have or recently had the virus.",
+      "data": [
+        "Stay home, apart from getting medical care.",
+        "Isolate yourself from other people at home.",
+        "Don’t share dishes, cups, eating utensils, or linens with others.",
+        "Cover your coughs and sneezes. Wash your hands often with soap.",
+        "Clean and disinfect common surfaces like phones, doorknobs, or counters regularly."
+      ]
+    }
+  ]
+}

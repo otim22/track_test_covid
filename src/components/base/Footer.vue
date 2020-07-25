@@ -17,17 +17,19 @@
         </ul>
       </div>
       <div class="col-sm-12 col-md-4 col-lg-4">
-        <h5 class="mb-3">Follow me</h5>   
-        <a target="_blank" href="https://web.facebook.com/fredrickot/"><font-awesome-icon :icon="{ prefix: 'fab', iconName: 'facebook' }" class="mr-3 facebook" /></a>
-        <a target="_blank" href="https://twitter.com/home"><font-awesome-icon :icon="{ prefix: 'fab', iconName: 'twitter' }" class="mr-3 twitter" /></a>
-        <a target="_blank" href="https://www.linkedin.com/in/otim-fredrick-29730a86/"><font-awesome-icon :icon="{ prefix: 'fab', iconName: 'linkedin-in' }" class="mr-3 linkedin-in" /></a>
-        <a target="_blank" href="https://github.com/otim22"><font-awesome-icon :icon="{ prefix: 'fab', iconName: 'github' }" class="mr-3 github" /></a>
-        <a target="_blank" href="https://medium.com/@otimfredrick"><font-awesome-icon :icon="{ prefix: 'fab', iconName: 'medium' }" class="medium" /></a>
+        <h5 class="mb-3">Follow me</h5> 
+        <div class="mt-4">
+          <a target="_blank" href="https://web.facebook.com/fredrickot/"><font-awesome-icon :icon="{ prefix: 'fab', iconName: 'facebook' }" class="mr-3 facebook" /></a>
+          <a target="_blank" href="https://twitter.com/home"><font-awesome-icon :icon="{ prefix: 'fab', iconName: 'twitter' }" class="mr-3 twitter" /></a>
+          <a target="_blank" href="https://www.linkedin.com/in/otim-fredrick-29730a86/"><font-awesome-icon :icon="{ prefix: 'fab', iconName: 'linkedin-in' }" class="mr-3 linkedin-in" /></a>
+          <a target="_blank" href="https://github.com/otim22"><font-awesome-icon :icon="{ prefix: 'fab', iconName: 'github' }" class="mr-3 github" /></a>
+          <a target="_blank" href="https://medium.com/@otimfredrick"><font-awesome-icon :icon="{ prefix: 'fab', iconName: 'medium' }" class="medium" /></a>
+          </div>  
       </div>
     </div>
     <div class="row footer">
       <div class="col-sm-12 col-md-12 col-lg-12 text-center">
-        <p class="footer-text">Copyright &copy; {{ new Date().getFullYear() }} Track test covid. Developed by Otim Fredrick a Ugandan based Software Dev.</p>        
+        <p class="footer-text">Copyright &copy; {{ new Date().getFullYear() }} Track Test Covid-19. Developed by Otim Fredrick and Abok Isaac. Proudly Ugandan.</p>        
       </div>
     </div>
   </div>
@@ -42,6 +44,7 @@
 .footer {
   background-color: #AAABAB;
   padding-top: 13px;
+  font-size: 16px;
 }
 
 .footer a, a:hover {
@@ -62,21 +65,26 @@ ul li {
 
 .facebook {
   color: #1638f5;
+  font-size: 23px;
 }
 
 .twitter {
   color: #6cdefa;
+  font-size: 23px;
 }
 
 .linkedin-in {
   color: #127b95;
+  font-size: 23px;
 }
 
 .github {
   color: #0b0b0c;
+  font-size: 23px;
 }
 
 .medium {
   color: #0f3f14;
+  font-size: 23px;
 }
 </style>
