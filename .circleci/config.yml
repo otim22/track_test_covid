@@ -1,9 +1,10 @@
 version: 2
 
 jobs:
-  lint-and-deploy:
+  build:
     docker:
       - image: circleci/node:10.15.3-stretch
+    working_directory: ~/src
     steps:
       - checkout
       - restore_cache:
@@ -21,7 +22,7 @@ jobs:
           command: npx vue-cli-service lint
       - run:
           name: Run tests
-          command: echo "This is just sample config, please replace this command with real tests :)"
+          command: rake
       - run:
           name: Build and minify app
           command: yarn build
@@ -29,4 +30,4 @@ workflows:
   version: 2
   main:
     jobs:
-      - lint-and-deploy
+      - build
