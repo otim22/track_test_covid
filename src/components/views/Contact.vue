@@ -6,7 +6,7 @@
       </div>
       <div class="col-sm-12 col-md-5 col-lg-5 offset-1" style="font-size: 20px">
         <p>Hello, Thanks for checking out covidometer.</p>
-        <p>Please, get in touch with me from here!! </p>
+        <p>Please, get in touch with us from here!! </p>
         <p>In case you have any discussion point or probably have a project to bring to life.</p>
       </div>
       <div class="col-sm-12 col-md-5 col-lg-5 offset-1" style="font-size: 20px">
