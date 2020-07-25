@@ -5,16 +5,9 @@ jobs:
       - image: 'circleci/node:latest'
     steps:
       - checkout
-      - restore_cache:
-        keys:
-          - yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
       - run:
           name: Install packages
           command: yarn install
-      - save_cache:
-        key: yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
-        paths:
-          - node_modules
       - run:
           name: Run linter
           command: npx vue-cli-service lint
