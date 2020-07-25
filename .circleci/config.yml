@@ -22,7 +22,7 @@ jobs:
           command: npx vue-cli-service lint
       - run:
           name: Run tests
-          command: rake
+          command: make test
       - run:
           name: Build and minify app
           command: yarn build
