@@ -1,10 +1,8 @@
 version: 2.1
-
-orbs:
-  node: circleci/node:10.15.3-stretch
-
 jobs:
   build:
+    docker:
+      - image: 'circleci/node:latest'
     steps:
       - checkout
       - restore_cache:
