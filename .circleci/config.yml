@@ -28,6 +28,9 @@ jobs:
           command: yarn build
 workflows:
   version: 2
-  main:
+  build-and-deploy:
     jobs:
       - build
+      - deploy:
+          requires:
+            - build
