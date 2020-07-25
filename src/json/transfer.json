@@ -1,0 +1,79 @@
+{
+  "title": "The following are possible infection ways;",
+  "summary": "Covid-19 is a new kind of disease that's of still under studying it.",
+  "detail": [
+    {
+      "type": "Direct or Indirect contact.",
+      "data": ["Between people who are in close contact with one another (within about 6 feet)."]
+    },
+    {
+      "type": "Respiratory droplet spray in short distance transmission.",
+      "data": ["Through respiratory droplets produced when an infected person coughs, sneezes or talks."]
+    },
+    {
+      "type": "Aerosol in long-range transmission (airborne transmission).",
+      "sub": [
+        {
+          "type": "Air Currents.",
+          "data": [
+            "Larger respiratory droplets (>5 μm) remain in the air for only a short time and travel only short distances, generally less than 1 m (less than 3.3 feet).",
+            "Virus-laden small (less than 5 μm) aerosolized droplets can remain in the air and travel long distances, > 1 m (more than 3.3 feet)."
+          ]
+        },
+        {
+          "type": "Humidity (best if between 50% and 80%)",
+          "data": [
+            "It is assumed that temperature and humidity modulate the viability of viruses by affecting the properties of viral surface proteins and lipid membrane.",
+            "Relative humidity (RH, or Saturation Ratio: the state of vapor equilibrium in room air) affects all infectious droplets with respiratory viruses, independent of their source (respiratory tract or aerosolized from any fluid) and location (in air or settled on surfaces). Relative humidity therefore affects all transmission ways but has the most pronounced effect on airborne transmission.",
+            "Measurements of indoor humidities in 40 residential apartments in New York (19) and in 6 high-quality commercial buildings in the Midwest (20) showed indoor vapor pressure of below 10 mb or indoor RH of below 24% in the winter"
+          ]
+        },
+        {
+          "type": "Airborne Transmission.",
+          "data": [
+            "The WHO states that, 'Respiratory infections can be transmitted through droplets of different sizes: when the droplet particles are >5-10 μm in diameter they are referred to as respiratory droplets, and when they are less than 5μm in diameter, they are referred to as droplet nuclei. According to current evidence, COVID-19 virus is primarily transmitted between people through respiratory droplets and contact routes'"
+          ]
+        },
+        {
+          "type": "Air Distance: up to 4 meters (13 feet) might be possible (in hospitals)",
+          "data": [
+            "The maximum transmission distance of SARS-CoV-2 aerosol might be 13.1 feet, according to a study published on April 10 on Emerging Infectious Diseases, a journal of the US CDC which also found that 'SARS-CoV-2 was widely distributed in the air and on object surfaces in both the ICU and general ward (GW), implying a potentially high infection risk for medical staff and other close contacts'"
+          ]
+        },
+        {
+          "type": "Objects and Surfaces.",
+          "sub_one": [
+            {
+              "type": "The virus could spread by touching an object or surface with virus present from an infected person, and then touching the mouth, nose or eyes."
+            },
+            {
+              "type": "Surface contamination as observed in the study cited above include;"
+            },
+            {
+              "data": [
+                "Computer mouse", "Trash cans", "Sickbed handrails", "Doorknobs", "Exercise equipment", "Medical equipment (spirometer, pulse oximeter, nasal cannula)", "PC and iPads", "Reading glasses", "Cellular phones", "Remote controls", "Toilets", "Room surfaces", "Bedside tables and bed rails", "Window ledges"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Duration of contamination on objects and surfaces",
+          "data": [
+            "Plastic: up to 2-3 days",
+            "Stainless Steel: up to 2-3 days",
+            "Cardboard: up to 1 day",
+            "Copper: up to 4 hours"
+          ]
+        },
+        {
+          "type": "Floor",
+          "data": [
+            "The rate of positivity was relatively high for floor swab samples (ICU 7/10, 70%; GW 2/13, 15.4%), perhaps because of gravity and air flow causing most virus droplets to float to the ground.",
+            "In addition, as medical staff walk around the ward, the virus can be tracked all over the floor, as indicated by the 100% rate of positivity from the floor in the pharmacy, where there were no patients.",
+            "Furthermore, half of the samples from the soles of the ICU medical staff shoes tested positive. Therefore, the soles of medical staff shoes might function as carriers. The 3 weak positive results from the floor of dressing room 4 might also arise from these carriers. We highly recommend that persons disinfect shoe soles before walking out of wards containing Covid-19 patients."
+          ]
+        }
+      ]
+    }
+  ]
+}
