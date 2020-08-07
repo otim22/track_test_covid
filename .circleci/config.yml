@@ -8,9 +8,9 @@ jobs:
       - run:
           name: Install packages
           command: yarn install
-      - run:
-          name: Run linter
-          command: npx vue-cli-service lint
+      #- run:
+          #name: Run linter
+          #command: npx vue-cli-service lint
       - run:
           name: Run tests
           command: yarn test
